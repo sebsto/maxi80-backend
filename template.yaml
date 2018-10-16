@@ -1,0 +1,124 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    Maxi80 Backend
+
+    Backend functions for Maxi80 iOS App
+    
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+    Function:
+        Timeout: 5
+
+Parameters: 
+
+  S3BucketNameParameter: 
+    Type: String
+    Default: artwork.maxi80.com
+    Description: S3 Bucket name where artwork is stored.
+
+  LogLevelParameter: 
+    Type: String
+    Default: debug
+    AllowedValues: 
+      - info
+      - warning
+      - error
+      - debug
+    Description: scripts debug level
+
+Resources:
+
+    Maxi80Backend:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: maxi80_backend/build/
+            Handler: app.lambda_handler
+            Runtime: python3.6
+            Role: !GetAtt Maxi80BackendRole.Arn
+            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+                Variables:
+                    LASTFM_API_KEY: a3286d25ccc61a3824bddd04d0d87593
+                    LASTFM_API_SECRET: 373ed959c9ae8d2948d94bfab575f113
+                    BUCKET: !Ref S3BucketNameParameter
+                    LOG_LEVEL: !Ref LogLevelParameter
+            Events:
+                GetArtwork:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /artwork/{artist}/{track}
+                        Method: get
+                        # AuthorizationType: AWS_IAM
+                Station:
+                    Type: Api # More info about API Event Source: 
+                    Properties:
+                        Path: /station
+                        Method: get
+                        # AuthorizationType: AWS_IAM
+
+    # Role for the Get Token lambda Function
+    Maxi80BackendRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+                Path: "/"
+                Policies:
+                  # add custom policy to allow access to S3 bucket for the token
+                  - 
+                    PolicyName: "S3"
+                    PolicyDocument: 
+                        Version: "2012-10-17"
+                        Statement: 
+                        - 
+                            Effect: "Allow"
+                            Action: 
+                                - "s3:PutObject"
+                                - "s3:GetObject"
+                                - "s3:HeadObject"
+                                - "s3:DeleteObject" # to run the unit tests
+                            Resource: 
+                                !Sub
+                                    - "arn:aws:s3:::${bucket}/*"
+                                    - bucket: !Ref S3BucketNameParameter
+                        - 
+                            # ListBucket (list objects) permission at bucket level
+                            # is what cause S3 to return NoSuchKey wen testing a non existing key
+                            # otherwise AccessDenied is returned.  
+                            # https://forums.aws.amazon.com/thread.jspa?threadID=56531 
+                            Effect: "Allow"
+                            Action: 
+                                - "s3:ListBucket"
+                            Resource: 
+                                !Sub
+                                    - "arn:aws:s3:::${bucket}"
+                                    - bucket: !Ref S3BucketNameParameter
+
+                # add default lambda permissions
+                ManagedPolicyArns:
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+                # authorise Lambda service to assume this role
+                AssumeRolePolicyDocument:
+                    Version: "2012-10-17"
+                    Statement:
+                        -
+                            Sid: "AllowLambdaServiceToAssumeRole"
+                            Effect: "Allow"
+                            Action: 
+                                - "sts:AssumeRole"
+                            Principal:
+                                Service: 
+                                - "lambda.amazonaws.com"
+
+Outputs:
+
+    Maxi80BackendAPIArtwork:
+      Description: "API Gateway endpoint URL for Prod stage for Maxi80 Backend Artwork function"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/artwork/"
+
+    Maxi80BackendFunction:
+      Description: "Maxi80 Backend Lambda Function ARN"
+      Value: !GetAtt Maxi80Backend.Arn
+
+    Maxi80BackendFunctionRole:
+      Description: "Implicit IAM Role created for Maxi80 Backend function"
+      Value: !GetAtt Maxi80BackendRole.Arn

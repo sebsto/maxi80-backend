@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::743602823695:user/seb"
+            },
+            "Action": "execute-api:Invoke",
+            "Resource": "arn:aws:execute-api:region:743602823695:Maxi80Backend/Prod/GET/artwork"
+        }
+    ]
+}

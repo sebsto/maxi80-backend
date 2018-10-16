@@ -1,0 +1,59 @@
+{
+    "track": {
+        "name": "Why Can't I Be You",
+        "mbid": "8b9c58db-3906-4ad5-ba15-c0e1c0894251",
+        "url": "https://www.last.fm/music/The+Cure/_/Why+Can%27t+I+Be+You",
+        "duration": "0",
+        "streamable": {
+            "#text": "0",
+            "fulltrack": "0"
+        },
+        "listeners": "92674",
+        "playcount": "465708",
+        "artist": {
+            "name": "The Cure",
+            "mbid": "69ee3720-a7cb-4402-b48d-a02c366f2bcf",
+            "url": "https://www.last.fm/music/The+Cure"
+        },
+        "album": {
+            "artist": "The Cure",
+            "title": "The Swing Tour '96 Barcelona",
+            "mbid": "9ec11741-950f-4c59-8846-b5d54725fc54",
+            "url": "https://www.last.fm/music/The+Cure/The+Swing+Tour+%2796+Barcelona",
+            "image": [{
+                "#text": "",
+                "size": "small"
+            }, {
+                "#text": "",
+                "size": "medium"
+            }, {
+                "#text": "",
+                "size": "large"
+            }, {
+                "#text": "",
+                "size": "extralarge"
+            }],
+            "@attr": {
+                "position": "10"
+            }
+        },
+        "toptags": {
+            "tag": [{
+                "name": "new wave",
+                "url": "https://www.last.fm/tag/new+wave"
+            }, {
+                "name": "80s",
+                "url": "https://www.last.fm/tag/80s"
+            }, {
+                "name": "alternative",
+                "url": "https://www.last.fm/tag/alternative"
+            }, {
+                "name": "rock",
+                "url": "https://www.last.fm/tag/rock"
+            }, {
+                "name": "The Cure",
+                "url": "https://www.last.fm/tag/The+Cure"
+            }]
+        }
+    }
+}

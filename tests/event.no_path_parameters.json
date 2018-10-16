@@ -1,0 +1,41 @@
+{
+    "resource": "/artwork/{artist}/{track}",
+    "path": "/artwork/Phill Collins/Easy Lover",
+    "httpMethod": "GET",
+    "headers": null,
+    "multiValueHeaders": null,
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": {
+        "proxy": "{proxy+}"
+    },
+    "stageVariables": null,
+    "requestContext": {
+        "path": "/artwork/{artist}/{track}",
+        "accountId": "743602823695",
+        "resourceId": "rxcdk1",
+        "stage": "test-invoke-stage",
+        "requestId": "8d548274-d143-11e8-a6eb-a92e2e295290",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "test-invoke-api-key",
+            "cognitoAuthenticationType": null,
+            "userArn": "arn:aws:sts::743602823695:assumed-role/admin/sst",
+            "apiKeyId": "test-invoke-api-key-id",
+            "userAgent": "aws-internal/3 aws-sdk-java/1.11.398 Linux/4.9.124-0.1.ac.198.71.329.metal1.x86_64 OpenJDK_64-Bit_Server_VM/25.181-b13 java/1.8.0_181",
+            "accountId": "743602823695",
+            "caller": "AROAIHVW77BUVCTY27EOM:sst",
+            "sourceIp": "test-invoke-source-ip",
+            "accessKey": "ASIA22IROUIH6QGRWC4X",
+            "cognitoAuthenticationProvider": null,
+            "user": "AROAIHVW77BUVCTY27EOM:sst"
+        },
+        "resourcePath": "/artwork/{artist}/{track}",
+        "httpMethod": "GET",
+        "extendedRequestId": "O3AbaH6mDoEF0Lw=",
+        "apiId": "r04zqxrdfl"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}

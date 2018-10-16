@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Maxi80 Backend
+
+  Backend functions for Maxi80 iOS App
+
+  '
+Globals:
+  Function:
+    Timeout: 5
+Outputs:
+  Maxi80BackendAPIArtwork:
+    Description: API Gateway endpoint URL for Prod stage for Maxi80 Backend Artwork
+      function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/artwork/
+  Maxi80BackendFunction:
+    Description: Maxi80 Backend Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - Maxi80Backend
+      - Arn
+  Maxi80BackendFunctionRole:
+    Description: Implicit IAM Role created for Maxi80 Backend function
+    Value:
+      Fn::GetAtt:
+      - Maxi80BackendRole
+      - Arn
+Parameters:
+  LogLevelParameter:
+    AllowedValues:
+    - info
+    - warning
+    - error
+    - debug
+    Default: debug
+    Description: scripts debug level
+    Type: String
+  S3BucketNameParameter:
+    Default: artwork.maxi80.com
+    Description: S3 Bucket name where artwork is stored.
+    Type: String
+Resources:
+  Maxi80Backend:
+    Properties:
+      CodeUri: s3://artwork.maxi80.com/deploy/sam/d065085e34e21b89ef02c4d0dfcb2d15
+      Environment:
+        Variables:
+          BUCKET:
+            Ref: S3BucketNameParameter
+          LASTFM_API_KEY: a3286d25ccc61a3824bddd04d0d87593
+          LASTFM_API_SECRET: 373ed959c9ae8d2948d94bfab575f113
+          LOG_LEVEL:
+            Ref: LogLevelParameter
+      Events:
+        GetArtwork:
+          Properties:
+            Method: get
+            Path: /artwork/{artist}/{track}
+          Type: Api
+        Station:
+          Properties:
+            Method: get
+            Path: /station
+          Type: Api
+      Handler: app.lambda_handler
+      Role:
+        Fn::GetAtt:
+        - Maxi80BackendRole
+        - Arn
+      Runtime: python3.6
+    Type: AWS::Serverless::Function
+  Maxi80BackendRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action:
+          - sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Sid: AllowLambdaServiceToAssumeRole
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: /
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:HeadObject
+            - s3:DeleteObject
+            Effect: Allow
+            Resource:
+              Fn::Sub:
+              - arn:aws:s3:::${bucket}/*
+              - bucket:
+                  Ref: S3BucketNameParameter
+          - Action:
+            - s3:ListBucket
+            Effect: Allow
+            Resource:
+              Fn::Sub:
+              - arn:aws:s3:::${bucket}
+              - bucket:
+                  Ref: S3BucketNameParameter
+          Version: '2012-10-17'
+        PolicyName: S3
+    Type: AWS::IAM::Role
+Transform: AWS::Serverless-2016-10-31

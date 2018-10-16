@@ -1,0 +1,24 @@
+{
+    "track": {
+        "name": "Les brunes ne comptent pas pour des prunes",
+        "url": "https://www.last.fm/music/Lio/_/Les+brunes+ne+comptent+pas+pour+des+prunes",
+        "duration": "0",
+        "streamable": {
+            "#text": "0",
+            "fulltrack": "0"
+        },
+        "listeners": "61",
+        "playcount": "213",
+        "artist": {
+            "name": "Lio",
+            "mbid": "e202b23b-274e-467c-ae93-ecb4ad7ef592",
+            "url": "https://www.last.fm/music/Lio"
+        },
+        "toptags": {
+            "tag": [{
+                "name": "songs that make me feel happy",
+                "url": "https://www.last.fm/tag/songs+that+make+me+feel+happy"
+            }]
+        }
+    }
+}
