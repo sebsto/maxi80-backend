@@ -42,19 +42,19 @@ Resources:
                     LASTFM_API_SECRET: 373ed959c9ae8d2948d94bfab575f113
                     BUCKET: !Ref S3BucketNameParameter
                     LOG_LEVEL: !Ref LogLevelParameter
-            Events:
-                GetArtwork:
-                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-                    Properties:
-                        Path: /artwork/{artist}/{track}
-                        Method: get
-                        # AuthorizationType: AWS_IAM
-                Station:
-                    Type: Api # More info about API Event Source: 
-                    Properties:
-                        Path: /station
-                        Method: get
-                        # AuthorizationType: AWS_IAM
+            # Events:
+            #     GetArtwork:
+            #         Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            #         Properties:
+            #             Path: /artwork/{artist}/{track}
+            #             Method: get
+            #             # AuthorizationType: AWS_IAM
+            #     Station:
+            #         Type: Api # More info about API Event Source: 
+            #         Properties:
+            #             Path: /station
+            #             Method: get
+            #             # AuthorizationType: AWS_IAM
 
     # Role for the Get Token lambda Function
     Maxi80BackendRole:
@@ -111,9 +111,9 @@ Resources:
 
 Outputs:
 
-    Maxi80BackendAPIArtwork:
-      Description: "API Gateway endpoint URL for Prod stage for Maxi80 Backend Artwork function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/artwork/"
+    # Maxi80BackendAPIArtwork:
+    #   Description: "API Gateway endpoint URL for Prod stage for Maxi80 Backend Artwork function"
+    #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/artwork/"
 
     Maxi80BackendFunction:
       Description: "Maxi80 Backend Lambda Function ARN"

@@ -8,11 +8,6 @@ Globals:
   Function:
     Timeout: 5
 Outputs:
-  Maxi80BackendAPIArtwork:
-    Description: API Gateway endpoint URL for Prod stage for Maxi80 Backend Artwork
-      function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/artwork/
   Maxi80BackendFunction:
     Description: Maxi80 Backend Lambda Function ARN
     Value:
@@ -42,7 +37,7 @@ Parameters:
 Resources:
   Maxi80Backend:
     Properties:
-      CodeUri: s3://artwork.maxi80.com/deploy/sam/d065085e34e21b89ef02c4d0dfcb2d15
+      CodeUri: s3://artwork.maxi80.com/deploy/sam/89746c27b5dbfa010adcbf150ff0efc1
       Environment:
         Variables:
           BUCKET:
@@ -51,17 +46,6 @@ Resources:
           LASTFM_API_SECRET: 373ed959c9ae8d2948d94bfab575f113
           LOG_LEVEL:
             Ref: LogLevelParameter
-      Events:
-        GetArtwork:
-          Properties:
-            Method: get
-            Path: /artwork/{artist}/{track}
-          Type: Api
-        Station:
-          Properties:
-            Method: get
-            Path: /station
-          Type: Api
       Handler: app.lambda_handler
       Role:
         Fn::GetAtt:

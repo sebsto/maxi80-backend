@@ -1,0 +1,64 @@
+{
+    "track": {
+        "name": "Fresh",
+        "mbid": "5db1459d-6479-41b9-b841-d04cb496901c",
+        "url": "https://www.last.fm/music/Kool+&+The+Gang/_/Fresh",
+        "duration": "266000",
+        "streamable": {
+            "#text": "0",
+            "fulltrack": "0"
+        },
+        "listeners": "106877",
+        "playcount": "401291",
+        "artist": {
+            "name": "Kool & The Gang",
+            "mbid": "2469950a-f0ca-425a-bfbc-baf55ea3afde",
+            "url": "https://www.last.fm/music/Kool+&+The+Gang"
+        },
+        "album": {
+            "artist": "Kool & The Gang",
+            "title": "Anthology - 20 Greatest Tracks",
+            "mbid": "09895796-1be0-4a58-b5f8-516b3bd8d589",
+            "url": "https://www.last.fm/music/Kool+&+The+Gang/Anthology+-+20+Greatest+Tracks",
+            "image": [{
+                "#text": "https://lastfm-img2.akamaized.net/i/u/34s/159b53b27767c30541cd5471d8d3aef6.png",
+                "size": "small"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/64s/159b53b27767c30541cd5471d8d3aef6.png",
+                "size": "medium"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/174s/159b53b27767c30541cd5471d8d3aef6.png",
+                "size": "large"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/159b53b27767c30541cd5471d8d3aef6.png",
+                "size": "extralarge"
+            }],
+            "@attr": {
+                "position": "17"
+            }
+        },
+        "toptags": {
+            "tag": [{
+                "name": "Disco",
+                "url": "https://www.last.fm/tag/Disco"
+            }, {
+                "name": "funk",
+                "url": "https://www.last.fm/tag/funk"
+            }, {
+                "name": "80s",
+                "url": "https://www.last.fm/tag/80s"
+            }, {
+                "name": "70s",
+                "url": "https://www.last.fm/tag/70s"
+            }, {
+                "name": "fresh",
+                "url": "https://www.last.fm/tag/fresh"
+            }]
+        },
+        "wiki": {
+            "published": "19 Aug 2013, 07:59",
+            "summary": "\"Fresh\" is a song by the R&B funk group Kool & the Gang. Released as a single in 1985 from the group's albumof the previous year, Emergency, the song peaked at #11 on the UK chart, #9 on the U.S. Hot 100 charts, and was number one on both the U.S. R&B and dance charts. The song introduced a new meaning to the word \"fresh,\" meaning \"good.\" <a href=\"http://www.last.fm/music/Kool+&+The+Gang/_/Fresh\">Read more on Last.fm</a>.",
+            "content": "\"Fresh\" is a song by the R&B funk group Kool & the Gang. Released as a single in 1985 from the group's album of the previous year, Emergency, the song peaked at #11 on the UK chart, #9 on the U.S. Hot 100 charts, and was number one on both the U.S. R&B and dance charts. The song introduced a new meaning to the word \"fresh,\" meaning \"good.\" <a href=\"http://www.last.fm/music/Kool+&+The+Gang/_/Fresh\">Read more on Last.fm</a>. User-contributed text is available under the Creative Commons By-SA License; additional terms may apply."
+        }
+    }
+}

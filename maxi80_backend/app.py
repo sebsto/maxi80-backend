@@ -1,12 +1,15 @@
 import json
 import os
 import logging
+import urllib
 import requests
 import boto3
 from botocore.exceptions import ClientError
 
 logging.basicConfig()
 logger = logging.getLogger('Maxi80Backend')
+
+NO_COVER_IMAGE="no-cover-400x400.png"
 
 # logging level
 logger.setLevel(logging.INFO)
@@ -26,7 +29,7 @@ def get_artwork_url(artist, track, lastfm ):
         # return the maxi80 placeholder
         logger.debug('no image found')
         s3 = boto3.client('s3')
-        return s3.generate_presigned_url('get_object', Params = {'Bucket': os.environ["BUCKET"], 'Key': 'maxi80.png'}, ExpiresIn = 60)
+        return s3.generate_presigned_url('get_object', Params = {'Bucket': os.environ["BUCKET"], 'Key': NO_COVER_IMAGE}, ExpiresIn = 60)
 
     # find the extrallarge image 
     result = None
@@ -154,7 +157,6 @@ def artwork(event, context):
             info = s3.get_object(Bucket=BUCKET, Key=key)
 
             logger.debug('Object found on S3')
-            result["statusCode"] = 200
             lastFM_response = json.loads(info["Body"].read().decode('UTF-8'))
 
         except ClientError as ex:
@@ -162,21 +164,19 @@ def artwork(event, context):
 
                 # we don't have data on S3, let's query LastFM API
                 logger.debug('No object found : %s - querying LastFM' % key)
-                response = requests.get("http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=%s&track=%s&format=json" % (LASTFM_API_KEY, ARTIST, TRACK))
-                result["statusCode"] = response.status_code
+                req = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=%s&artist=%s&track=%s&format=json" % (LASTFM_API_KEY, urllib.parse.quote(ARTIST), urllib.parse.quote(TRACK))
+                logger.debug(req)
+                response = requests.get(req)
+                result["lastFMStatusCode"] = response.status_code
                 logger.debug('LastFM responded with code : %d' % response.status_code)
                 lastFM_response = json.loads(response.text)
                 logger.debug(response.text)
 
                 if "error" in lastFM_response:
                     # do not cache, probably incorrect track name. 
-                    result["statusCode"] = 404 # should we return 500 ?
+                    result["lastFMStatusCode"] = 404 # should we return 500 ?
                     result["error"] = response.text
 
-                    # return a default image 
-                    result["body"] = { 'url' : get_artwork_url(ARTIST, TRACK, lastFM_response),
-                                       'artist' : ARTIST,
-                                       'track' : TRACK }
                 else:
                     # and save it to S3
                     s3.put_object(Bucket=BUCKET, Key=key, Body=response.text.encode('UTF-8'))
@@ -194,11 +194,15 @@ def artwork(event, context):
         logger.error(e)
         raise e
 
-    # replace body with URL of the artwork (either downloaded or taken from cache)
-    if result['statusCode'] == 200:
-        result['body'] = json.dumps({ 'url' : get_artwork_url(ARTIST, TRACK, lastFM_response),
-        'artist' : ARTIST,
-        'track' : TRACK })
+    # fetch artwork URL (or the default)
+    artworkURL = get_artwork_url(ARTIST, TRACK, lastFM_response)
+
+    # prepare and return our response
+    result['statusCode'] = 200  # for API Gateway, not sure this is relevant with GraphQL
+    result['body'] = json.dumps(
+        { 'url' : artworkURL,
+          'artist' : ARTIST,
+          'track' : TRACK })
 
     return result
 

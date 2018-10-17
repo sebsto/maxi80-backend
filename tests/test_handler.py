@@ -10,6 +10,7 @@ from maxi80_backend import app
 LASTFM_API_KEY='a3286d25ccc61a3824bddd04d0d87593'
 BUCKET='artwork.maxi80.com'
 AWS_PROFILE='backend'
+NO_COVER_IMAGE="no-cover-400x400.png"
 
 logging.basicConfig()
 logger = logging.getLogger('TestMaxi80Backend')
@@ -45,6 +46,35 @@ class TestMaxi80Backend(unittest.TestCase):
         mocker.return_value.ok = True
         mocker.return_value.status_code = 200
         with open('tests/lastfm.json') as lastfm_data:
+            mocker.return_value.text = lastfm_data.read()
+
+        ret = app.lambda_handler(apigw_event, "")
+        assert ret["statusCode"] == 200
+        body = json.loads(ret['body'])
+        assert 'url' in body
+        URL = body['url']
+        assert "https://" in URL
+        assert "cover.png" in URL
+        assert "AWSAccessKeyId" in URL
+        assert "Signature" in URL
+
+    @patch('maxi80_backend.app.requests.get')
+    def test_lambda_handler_with_encoding_no_cache(self, mocker):
+
+        # read APIGW event
+        apigw_event = None
+        with open('tests/event.with.encoding.json') as event_data:
+            apigw_event = json.load(event_data)
+
+        # ensure the S3 cache is empty 
+        ARTIST = apigw_event['pathParameters']['artist']
+        TRACK= apigw_event['pathParameters']['track']
+        self.clean_cache(ARTIST, TRACK)
+
+        # prepare request's reponse 
+        mocker.return_value.ok = True
+        mocker.return_value.status_code = 200
+        with open('tests/lastfm.with.encoding.json') as lastfm_data:
             mocker.return_value.text = lastfm_data.read()
 
         ret = app.lambda_handler(apigw_event, "")
@@ -103,7 +133,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert 'url' in body
         URL = body['url']
         assert "https://" in URL
-        assert "maxi80.png" in URL
+        assert NO_COVER_IMAGE in URL
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
@@ -131,7 +161,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert 'url' in body
         URL = body['url']
         assert "https://" in URL
-        assert "maxi80.png" in URL
+        assert NO_COVER_IMAGE in URL
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
@@ -159,7 +189,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert 'url' in body
         URL = body['url']
         assert "https://" in URL
-        assert "maxi80.png" in URL
+        assert NO_COVER_IMAGE in URL
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
@@ -187,7 +217,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert 'url' in body
         URL = body['url']
         assert "https://" in URL
-        assert "maxi80.png" in URL
+        assert NO_COVER_IMAGE in URL
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
@@ -242,8 +272,16 @@ class TestMaxi80Backend(unittest.TestCase):
             mocker.return_value.text = lastfm_data.read()
 
         ret = app.lambda_handler(apigw_event, "")
-        assert ret["statusCode"] == 404
-
+        assert ret["statusCode"] == 200
+        assert ret["lastFMStatusCode"] == 404
+        body = json.loads(ret['body'])
+        assert 'url' in body
+        URL = body['url']
+        assert "https://" in URL
+        assert NO_COVER_IMAGE in URL
+        assert "AWSAccessKeyId" in URL
+        assert "Signature" in URL
+        
     def test_lambda_handler_station(self):
 
             # read APIGW event
