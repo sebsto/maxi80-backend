@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "appsync:GraphQL"
+            ],
+            "Resource": [
+                "arn:aws:appsync:eu-west-1:743602823695:apis/errgnkbey5cntllyevjxpwxy7e/types/Query/fields/artwork",
+                "arn:aws:appsync:eu-west-1:743602823695:apis/errgnkbey5cntllyevjxpwxy7e/types/Query/fields/station"
+            ]
+        }
+    ]
+}

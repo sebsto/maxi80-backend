@@ -1,0 +1,17 @@
+# this is an auto generated file. This will be overwritten
+query Artwork($artist: String!, $track: String!) {
+  artwork(artist: $artist, track: $track) {
+    artist
+    track
+    url
+  }
+}
+query Station {
+  station {
+    name
+    streamURL
+    imageURL
+    desc
+    longDesc
+  }
+}

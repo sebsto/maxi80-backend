@@ -1,0 +1,17 @@
+projects:
+  Maxi80 Artwork API:
+    schemaPath: graphql/schema.json
+    includes:
+      - graphql/**/*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        graphQLApiId: errgnkbey5cntllyevjxpwxy7e
+        codeGenTarget: swift
+        generatedFileName: API.swift
+        docsFilePath: graphql
+        region: eu-west-1
+      endpoints:
+        prod: >-
+          https://mgtbxnog4jgwjboj7b5lro73ly.appsync-api.eu-west-1.amazonaws.com/graphql

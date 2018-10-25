@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "maxi80backend-20181024163228-authRole",
+            "UnauthRoleArn": "arn:aws:iam::743602823695:role/maxi80backend-20181024163228-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::743602823695:role/maxi80backend-20181024163228-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "maxi80backend-20181024163228-deployment",
+            "UnauthRoleName": "maxi80backend-20181024163228-unauthRole",
+            "StackName": "maxi80backend-20181024163228",
+            "StackId": "arn:aws:cloudformation:eu-west-1:743602823695:stack/maxi80backend-20181024163228/04614f00-d7a2-11e8-8a9a-500c3d3c2c9a"
+        }
+    }
+}
