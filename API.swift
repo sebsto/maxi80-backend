@@ -106,7 +106,7 @@ public final class ArtworkQuery: GraphQLQuery {
 
 public final class StationQuery: GraphQLQuery {
   public static let operationString =
-    "query Station {\n  station {\n    __typename\n    name\n    streamURL\n    imageURL\n    desc\n    longDesc\n  }\n}"
+    "query Station {\n  station {\n    __typename\n    name\n    streamURL\n    imageURL\n    desc\n    longDesc\n    websiteURL\n    donationURL\n  }\n}"
 
   public init() {
   }
@@ -147,6 +147,8 @@ public final class StationQuery: GraphQLQuery {
         GraphQLField("imageURL", type: .nonNull(.scalar(String.self))),
         GraphQLField("desc", type: .nonNull(.scalar(String.self))),
         GraphQLField("longDesc", type: .nonNull(.scalar(String.self))),
+        GraphQLField("websiteURL", type: .nonNull(.scalar(String.self))),
+        GraphQLField("donationURL", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -155,8 +157,8 @@ public final class StationQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(name: String, streamUrl: String, imageUrl: String, desc: String, longDesc: String) {
-        self.init(snapshot: ["__typename": "Station", "name": name, "streamURL": streamUrl, "imageURL": imageUrl, "desc": desc, "longDesc": longDesc])
+      public init(name: String, streamUrl: String, imageUrl: String, desc: String, longDesc: String, websiteUrl: String, donationUrl: String) {
+        self.init(snapshot: ["__typename": "Station", "name": name, "streamURL": streamUrl, "imageURL": imageUrl, "desc": desc, "longDesc": longDesc, "websiteURL": websiteUrl, "donationURL": donationUrl])
       }
 
       public var __typename: String {
@@ -210,6 +212,24 @@ public final class StationQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "longDesc")
+        }
+      }
+
+      public var websiteUrl: String {
+        get {
+          return snapshot["websiteURL"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "websiteURL")
+        }
+      }
+
+      public var donationUrl: String {
+        get {
+          return snapshot["donationURL"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "donationURL")
         }
       }
     }

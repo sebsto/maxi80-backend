@@ -13,5 +13,7 @@ query Station {
     imageURL
     desc
     longDesc
+    websiteURL
+    donationURL
   }
 }

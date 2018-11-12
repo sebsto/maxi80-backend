@@ -37,7 +37,7 @@ Parameters:
 Resources:
   Maxi80Backend:
     Properties:
-      CodeUri: s3://artwork.maxi80.com/deploy/sam/89746c27b5dbfa010adcbf150ff0efc1
+      CodeUri: s3://artwork.maxi80.com/deploy/sam/c5af71baae6380effdf945eee4a2da44
       Environment:
         Variables:
           BUCKET:

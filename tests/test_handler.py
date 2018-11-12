@@ -293,6 +293,9 @@ class TestMaxi80Backend(unittest.TestCase):
             assert ret["statusCode"] == 200
             body = json.loads(ret['body'])
             assert 'name' in body
+            assert 'streamURL' in body
+            assert 'donationURL' in body
+            assert 'websiteURL' in body
 
 if __name__ == '__main__':
     unittest.main()

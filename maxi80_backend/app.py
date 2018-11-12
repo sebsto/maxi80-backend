@@ -111,7 +111,9 @@ def station(event, context):
             'streamURL': "https://audio1.maxi80.com",
             'imageURL': "station-maxi80.png",
             'desc': "La radio de toute une génération",
-            'longDesc': "Le meilleur de la musique des années 80"}
+            'longDesc': "Le meilleur de la musique des années 80",
+            'websiteURL': "https://maxi80.com",
+            'donationURL' :  "https://maxi80.com/paypal.htm"}
 
     return  { 'statusCode' : 200, 'body' : json.dumps(STATION) }          
 
