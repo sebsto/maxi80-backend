@@ -41,7 +41,7 @@ def get_artwork_url(artist, track, lastfm ):
         else:
 
             # found an extra large image
-            logger.debug('image found')
+            logger.debug('extra large image found')
 
             s3 = boto3.client('s3')
             BUCKET = os.environ["BUCKET"]
@@ -59,6 +59,7 @@ def get_artwork_url(artist, track, lastfm ):
 
                     # no, download it from last fm 
                     logger.debug('image not in cache, downloading it from URL returned by LastFM')
+                    print(large_url[0]['#text'])
                     import urllib.request 
                     urllib.request.urlretrieve(large_url[0]['#text'], '/tmp/cover.png')     
 

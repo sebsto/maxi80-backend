@@ -3,13 +3,13 @@
         "name": "Easy Lover",
         "mbid": "893eb2d4-1974-4467-871c-086679ae4625",
         "url": "https://www.last.fm/music/Phil+Collins/_/Easy+Lover",
-        "duration": "286000",
+        "duration": "305000",
         "streamable": {
             "#text": "0",
             "fulltrack": "0"
         },
-        "listeners": "167603",
-        "playcount": "712511",
+        "listeners": "177751",
+        "playcount": "777314",
         "artist": {
             "name": "Phil Collins",
             "mbid": "401c3991-b76b-499d-8082-9f2df958ef78",
@@ -20,40 +20,51 @@
             "title": "Serious Hits... Live!",
             "mbid": "1e50a435-ee75-323d-bcab-1b79f7691ffa",
             "url": "https://www.last.fm/music/Phil+Collins/Serious+Hits...+Live%21",
-            "image": [{
-                "#text": "https://lastfm-img2.akamaized.net/i/u/34s/9cdb4773e620e9d8a24aea13f3557b86.png",
-                "size": "small"
-            }, {
-                "#text": "https://lastfm-img2.akamaized.net/i/u/64s/9cdb4773e620e9d8a24aea13f3557b86.png",
-                "size": "medium"
-            }, {
-                "#text": "https://lastfm-img2.akamaized.net/i/u/174s/9cdb4773e620e9d8a24aea13f3557b86.png",
-                "size": "large"
-            }, {
-                "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/9cdb4773e620e9d8a24aea13f3557b86.png",
-                "size": "extralarge"
-            }],
+            "image": [
+                {
+                    "#text": "https://lastfm.freetls.fastly.net/i/u/34s/9cdb4773e620e9d8a24aea13f3557b86.png",
+                    "size": "small"
+                },
+                {
+                    "#text": "https://lastfm.freetls.fastly.net/i/u/64s/9cdb4773e620e9d8a24aea13f3557b86.png",
+                    "size": "medium"
+                },
+                {
+                    "#text": "https://lastfm.freetls.fastly.net/i/u/174s/9cdb4773e620e9d8a24aea13f3557b86.png",
+                    "size": "large"
+                },
+                {
+                    "#text": "https://lastfm.freetls.fastly.net/i/u/300x300/9cdb4773e620e9d8a24aea13f3557b86.png",
+                    "size": "extralarge"
+                }
+            ],
             "@attr": {
                 "position": "14"
             }
         },
         "toptags": {
-            "tag": [{
-                "name": "80s",
-                "url": "https://www.last.fm/tag/80s"
-            }, {
-                "name": "pop",
-                "url": "https://www.last.fm/tag/pop"
-            }, {
-                "name": "Phil Collins",
-                "url": "https://www.last.fm/tag/Phil+Collins"
-            }, {
-                "name": "rock",
-                "url": "https://www.last.fm/tag/rock"
-            }, {
-                "name": "classic rock",
-                "url": "https://www.last.fm/tag/classic+rock"
-            }]
+            "tag": [
+                {
+                    "name": "80s",
+                    "url": "https://www.last.fm/tag/80s"
+                },
+                {
+                    "name": "pop",
+                    "url": "https://www.last.fm/tag/pop"
+                },
+                {
+                    "name": "Phil Collins",
+                    "url": "https://www.last.fm/tag/Phil+Collins"
+                },
+                {
+                    "name": "rock",
+                    "url": "https://www.last.fm/tag/rock"
+                },
+                {
+                    "name": "classic rock",
+                    "url": "https://www.last.fm/tag/classic+rock"
+                }
+            ]
         },
         "wiki": {
             "published": "30 Apr 2009, 19:52",

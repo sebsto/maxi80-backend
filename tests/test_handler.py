@@ -5,11 +5,11 @@ from unittest.mock import Mock, patch
 import warnings
 import logging
 import boto3
-from maxi80_backend import app
+from src import app
 
 LASTFM_API_KEY='a3286d25ccc61a3824bddd04d0d87593'
 BUCKET='artwork.maxi80.com'
-AWS_PROFILE='backend'
+AWS_PROFILE='maxi80'
 NO_COVER_IMAGE="no-cover-400x400.png"
 
 logging.basicConfig()
@@ -29,7 +29,7 @@ class TestMaxi80Backend(unittest.TestCase):
         warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>") 
         warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_happy_path_no_cache(self, mocker):
 
         # read APIGW event
@@ -58,7 +58,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_with_encoding_no_cache(self, mocker):
 
         # read APIGW event
@@ -109,7 +109,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_image_1(self, mocker):
 
         apigw_event = None
@@ -137,7 +137,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_image_2(self, mocker):
 
         apigw_event = None
@@ -165,7 +165,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_image_3(self, mocker):
 
         apigw_event = None
@@ -193,7 +193,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_image_4(self, mocker):
 
         apigw_event = None
@@ -221,7 +221,7 @@ class TestMaxi80Backend(unittest.TestCase):
         assert "AWSAccessKeyId" in URL
         assert "Signature" in URL
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_args_in_query_string(self, mocker):
 
         apigw_event = None
@@ -237,7 +237,7 @@ class TestMaxi80Backend(unittest.TestCase):
         ret = app.lambda_handler(apigw_event, "")
         assert ret["statusCode"] == 400
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_no_query_string(self, mocker):
 
         apigw_event = None
@@ -254,7 +254,7 @@ class TestMaxi80Backend(unittest.TestCase):
         ret = app.lambda_handler(apigw_event, "")
         assert ret["statusCode"] == 400
 
-    @patch('maxi80_backend.app.requests.get')
+    @patch('src.app.requests.get')
     def test_lambda_handler_track_not_found(self, mocker):
 
         # read APIGW event

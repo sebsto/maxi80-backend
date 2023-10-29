@@ -32,9 +32,12 @@ Resources:
     Maxi80Backend:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
-            CodeUri: maxi80_backend/build/
+            CodeUri: src
             Handler: app.lambda_handler
-            Runtime: python3.6
+            PackageType: Zip
+            Runtime: python3.11
+            Architectures:
+              - "arm64"
             Role: !GetAtt Maxi80BackendRole.Arn
             Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
                 Variables:
