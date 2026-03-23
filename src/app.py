@@ -11,6 +11,11 @@ logger = logging.getLogger('Maxi80Backend')
 
 NO_COVER_IMAGE="no-cover-400x400.png"
 
+def build_key(suffix: str) -> str:
+    """Prepend KEY_PREFIX to an S3 key suffix."""
+    prefix = os.environ.get("KEY_PREFIX", "")
+    return f"{prefix}{suffix}"
+
 # logging level
 logger.setLevel(logging.INFO)
 log_level = os.environ.get('LOG_LEVEL')
@@ -29,7 +34,7 @@ def get_artwork_url(artist, track, lastfm ):
         # return the maxi80 placeholder
         logger.debug('no image found')
         s3 = boto3.client('s3')
-        return s3.generate_presigned_url('get_object', Params = {'Bucket': os.environ["BUCKET"], 'Key': NO_COVER_IMAGE}, ExpiresIn = 60)
+        return s3.generate_presigned_url('get_object', Params = {'Bucket': os.environ["BUCKET"], 'Key': build_key(NO_COVER_IMAGE)}, ExpiresIn = 60)
 
     # find the extrallarge image 
     result = None
@@ -45,7 +50,7 @@ def get_artwork_url(artist, track, lastfm ):
 
             s3 = boto3.client('s3')
             BUCKET = os.environ["BUCKET"]
-            key = "%s/%s/cover.png" % (artist, track)
+            key = build_key(f"{artist}/{track}/cover.png")
             try:
                 # there is a large cover returned, do we have it already on S3 ?
                 s3.get_object(Bucket=BUCKET, Key=key)
@@ -151,7 +156,7 @@ def artwork(event, context):
         BUCKET = os.environ["BUCKET"]
 
         result = { 'statusCode' : 0, 'body' : ''}
-        key = "%s/%s/info.json" % (ARTIST, TRACK)
+        key = build_key(f"{ARTIST}/{TRACK}/info.json")
         s3 = boto3.client('s3')
         
         try:

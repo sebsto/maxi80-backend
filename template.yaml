@@ -35,7 +35,7 @@ Resources:
             CodeUri: src
             Handler: app.lambda_handler
             PackageType: Zip
-            Runtime: python3.11
+            Runtime: python3.13
             Architectures:
               - "arm64"
             Role: !GetAtt Maxi80BackendRole.Arn
@@ -45,6 +45,7 @@ Resources:
                     LASTFM_API_SECRET: 373ed959c9ae8d2948d94bfab575f113
                     BUCKET: !Ref S3BucketNameParameter
                     LOG_LEVEL: !Ref LogLevelParameter
+                    KEY_PREFIX: "v1/"
             # Events:
             #     GetArtwork:
             #         Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
